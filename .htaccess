@@ -1,0 +1,4 @@
+RewriteEngine On
+# Mengarahkan akses dari root ke folder views
+RewriteRule ^dashboard$ views/daftar_laporan.php [L]
+RewriteRule ^laporan$ views/daftar_laporan.php [L]
