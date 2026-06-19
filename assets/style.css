@@ -1,25 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
 
 :root{
-    --primary: #2563eb;
-    --secondary: #60a5fa;
-    --accent: #8b5cf6;
+    --primary: #00c2a8;
+    --secondary: #00d4ff;
+    --accent: #ff7a59;
 
-    --dark: #0f172a;
-    --dark-soft: #1e293b;
+    --dark: #264653;
+    --dark-soft: #2f5d6c;
 
     --white: #ffffff;
     --light: #f8fafc;
-    --gray: #94a3b8;
+    --gray: #d6e2e9;
 
-    --success: #22c55e;
-    --warning: #f59e0b;
-    --danger: #ef4444;
+    --success: #2ecc71;
+    --warning: #f39c12;
+    --danger: #e74c3c;
 
     --shadow:
-        0 10px 30px rgba(0,0,0,.15);
+        0 10px 30px rgba(0,0,0,.25);
 }
-
 *{
     margin:0;
     padding:0;
@@ -618,4 +617,129 @@ input[type="file"]{
     border-radius: 20px;
     width: 400px;
     text-align: center;
+}
+/* ATURAN KHUSUS NAVBAR & FOOTER */
+
+/* Navbar tetap di atas */
+nav {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* Footer tetap di bawah */
+footer {
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+}
+
+/* Tambahkan padding pada body agar konten tidak tertutup */
+body {
+    padding-top: 80px;    /* Sesuaikan dengan tinggi navbar Anda */
+    padding-bottom: 70px; /* Sesuaikan dengan tinggi footer Anda */
+    min-height: 100vh;
+}
+
+/* Styling Dropdown agar lebih modern */
+select {
+    width: 100%;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.08); /* Konsisten dengan input */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    cursor: pointer;
+    appearance: none; /* Menghilangkan panah default browser */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    
+    /* Menambahkan panah kustom yang cantik */
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em;
+    
+    transition: 0.3s;
+}
+
+/* Efek saat diklik/fokus */
+select:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--secondary);
+    outline: none;
+    box-shadow: 0 0 10px rgba(96, 165, 250, 0.3);
+}
+
+/* Styling saat pilihan diklik (opsional, tergantung browser) */
+select option {
+    background-color: var(--dark); /* Warna background option */
+    color: white;
+    padding: 10px;
+}
+
+/* Khusus untuk memperpendek input Waktu (type="datetime-local" atau "text") */
+input[type="datetime-local"], 
+input[type="text"][name="waktu"] {
+    max-width: 300px; /* Atur angka ini sesuai panjang yang Anda mau */
+}
+
+/* Khusus untuk memperpendek dropdown Kategori Pencemaran */
+select[name="kategori"] {
+    max-width: 300px; /* Atur angka ini sesuai panjang yang Anda mau */
+}
+
+
+/* Vibrant River Theme */
+
+body{
+    background:
+        linear-gradient(
+            135deg,
+            #264653,
+            #2a9d8f,
+            #00b4d8
+        );
+}
+
+nav{
+    background: rgba(38,70,83,.65);
+}
+
+footer{
+    background: rgba(38,70,83,.65);
+}
+
+.login-card,
+.card-container,
+.card,
+.container form,
+table,
+.tabel-react{
+    background: rgba(255,255,255,.13);
+    border: 1px solid rgba(255,255,255,.18);
+}
+
+table th,
+.tabel-react thead{
+    background: rgba(255,255,255,.12);
+}
+
+input,
+textarea,
+select{
+    background: rgba(255,255,255,.10);
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+    border-color: #00d4ff;
+    box-shadow: 0 0 15px rgba(0,212,255,.3);
 }

@@ -16,17 +16,15 @@
         const [data, setData] = React.useState(null);
         const [selectedItem, setSelectedItem] = React.useState(null); 
 
-        
         React.useEffect(() => {
-            axios.get('../api_laporan.php')
+            axios.get('controllers/api_laporan.php')
                 .then(res => setData(Array.isArray(res.data) ? res.data : []))
                 .catch(err => { console.error(err); setData([]); });
         }, []);
 
-        // Fungsi Hapus (PENTING: Ditaruh di dalam LaporanList)
         const hapusData = (id) => {
             if(confirm("Yakin ingin menghapus laporan ini?")) {
-                axios.delete('../api_laporan.php?id=' + id)
+                axios.delete('controllers/api_laporan.php?id=' + id)
                     .then(() => {
                         setData(data.filter(item => item.id !== id));
                     })
@@ -34,25 +32,31 @@
             }
         };
 
-        if (data === null) return <div>Memuat data...</div>;
+        if (data === null) return <div style={{textAlign: 'center', marginTop: '50px'}}>Memuat data...</div>;
 
-        // Tampilan Daftar
+ 
         if (!selectedItem) {
             return (
                 <div className="container">
-                    <h2>Daftar Laporan</h2>
+                    <h2 style={{marginBottom: '20px'}}>Daftar Laporan Pencemaran</h2>
                     <table className="tabel-react">
                         <thead>
-                            <tr><th>Lokasi</th><th>Status</th><th>Aksi</th></tr>
+                            <tr>
+                                <th>Lokasi Sungai</th>
+                                <th>Kategori</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {data.map(item => (
                                 <tr key={item.id}>
-                                    <td>{item.lokasi_fasilitas}</td>
-                                    <td>{item.status_kerusakan}</td>
+                                    <td>{item.lokasi_sungai}</td>
+                                    <td>{item.kategori_pencemaran}</td>
+                                    <td>{item.status_pencemaran}</td>
                                     <td>
-                                        <button className="btn-edit" onClick={() => setSelectedItem(item)}>Detail</button>
-                                        <button className="btn-hapus" onClick={() => hapusData(item.id)} style={{marginLeft: '10px'}}>Hapus</button>
+                                        <button className="btn-primary" style={{padding: '8px 15px'}} onClick={() => setSelectedItem(item)}>Detail</button>
+                                        <button className="btn-hapus" style={{marginLeft: '10px', padding: '8px 15px'}} onClick={() => hapusData(item.id)}>Hapus</button>
                                     </td>
                                 </tr>
                             ))}
@@ -62,15 +66,17 @@
             );
         }
 
-        // Tampilan Detail
+       
         return (
             <div className="container">
-                <div className="detail-card">
-                    <button className="btn-hapus" onClick={() => setSelectedItem(null)}>← Kembali ke Daftar</button>
-                    <h2 style={{marginTop: '20px'}}>Detail: {selectedItem.lokasi_fasilitas}</h2>
-                    <img src={'../uploads/' + selectedItem.foto_bukti} alt="Bukti" style={{maxWidth: '300px', width: '100%'}} />
-                    <p><strong>Status:</strong> {selectedItem.status_kerusakan}</p>
-                    <p><strong>Deskripsi:</strong> {selectedItem.deskripsi}</p>
+                {/* Menggunakan class card-container agar konsisten dengan desain Anda */}
+                <div className="card-container">
+                    <button className="btn-hapus" onClick={() => setSelectedItem(null)}>← Kembali</button>
+                    <h2 style={{marginTop: '20px', marginBottom: '15px'}}>Detail: {selectedItem.lokasi_sungai}</h2>
+                    <img src={'uploads/' + selectedItem.foto_bukti} alt="Bukti" style={{maxWidth: '300px', width: '100%', borderRadius: '15px', marginBottom: '15px'}} />
+                    <p><strong>Kategori:</strong> {selectedItem.kategori_pencemaran}</p>
+                    <p><strong>Status:</strong> {selectedItem.status_pencemaran}</p>
+                    <p style={{marginTop: '10px'}}><strong>Deskripsi:</strong> {selectedItem.deskripsi}</p>
                 </div>
             </div>
         );
